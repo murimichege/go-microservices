@@ -22,12 +22,14 @@ func (app *Config)routes() http.Handler{
 			AllowedHeaders: []string{
 				"Accept", "Authorization","Content-Type", 
 			},
+			ExposedHeaders: []string{"LINK"},
 			AllowCredentials:true,
 			MaxAge: 300,
 	
 
 	}))
 	mux.Use(middleware.Heartbeat("/ping"))
+	mux.Post("/", app.Broker)
 
 return mux
 }
