@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../../.."
+		},
+		{
+			"path": "../../../../authentication-service"
 		}
 	],
 	"settings": {}
