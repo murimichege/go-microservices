@@ -34,6 +34,13 @@ func (app *Config) Authenticate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// log authentication
+	err = app.logRequest(w, "authentication", fmt.Sprintf("%s logged in", user.Email))
+
+	if err != nil {
+		app.errorJSON(w, err)
+		return
+	}
+
 	payload := jsonResponse{
 		Error:   false,
 		Message: fmt.Sprintf("Logged in user %s", user.Email),
@@ -43,7 +50,7 @@ func (app *Config) Authenticate(w http.ResponseWriter, r *http.Request) {
 	app.writeJSON(w, http.StatusAccepted, payload)
 }
 
-func (app *Config) logRequest(name, data string) error {
+func (app *Config) logRequest(w http.ResponseWriter, name, data string) error {
 	var entry struct {
 		Name string `json:"name"`
 		Data string `json:"data"`
