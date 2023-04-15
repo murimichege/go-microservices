@@ -49,4 +49,9 @@ services:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
-      - ./db-data/mongo/:/data/db
+      - ./db-data/mongo/:/data/
+  mailhog:
+    image: 'mail-service/mail-service:latest'
+    ports:
+      -"1025:1025"
+      -"8025:8025"
