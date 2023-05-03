@@ -39,7 +39,7 @@ services:
       POSTGRES_DB: users
     volumes:
       - ./db-data/postgres/:/var/lib/postgresql/data/
-  listener-service:
+  listener-secdrvice:
     build:
       context: ./../listener-service
       dockerfile: ./../listener-service/listener-service.dockerfile

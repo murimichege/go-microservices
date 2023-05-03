@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/rabbitmq/amqp091-go"
+	amqp "github.com/rabbitmq/amqp091-go"
 	"listener/event"
 	"log"
 	"math"
@@ -34,14 +34,14 @@ func main() {
 		log.Println(err)
 	}
 }
-func connect() (*amqp091.Connection, *amqp091.Connection) {
+func connect() (*amqp.Connection, *amqp.Connection) {
 	var counts int64
 	var backoff = 1 * time.Second
-	var connection *amqp091.Connection
+	var connection *amqp.Connection
 
 	// dont continue until rabbit is ready
 	for {
-		c, err := amqp091.Dial("amqp://guest:guest@rabbitmq")
+		c, err := amqp.Dial("amqp://guest:guest@rabbitmq")
 		if err != nil {
 			fmt.Println("Rabbit not yet ready")
 			counts++
