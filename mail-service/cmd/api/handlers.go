@@ -2,7 +2,7 @@ package main
 
 import "net/http"
 
-func (app *Config) SendMail(w, http.ResponseWriter, r, http.Request) {
+func (app *Config) SendMail(w http.ResponseWriter, r *http.Request) {
 
 	type mailMessage struct {
 		From    string `json:"from"`
@@ -24,16 +24,16 @@ func (app *Config) SendMail(w, http.ResponseWriter, r, http.Request) {
 		Subject: requestPayload.Subject,
 		Data:    requestPayload.Message,
 	}
-	err := app.Mailer.SendSMTPMessage(msg)
+	err = app.Mailer.SendSMTPMessage(msg)
 	if err != nil {
 		app.errorJSON(w, err)
 		return
 	}
 
 	payload := jsonResponse{
-		Error: false,
-		Message: "sent to " + requestPayload.To
+		Error:   false,
+		Message: "sent to " + requestPayload.To,
 	}
-	app.writeJSON(w, http.StatusAccepted,payload)
+	app.writeJSON(w, http.StatusAccepted, payload)
 
 }
