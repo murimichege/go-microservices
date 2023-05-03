@@ -71,7 +71,8 @@ func (m *Mail) SendSMTPMessage(msg Message) error {
 
 	if len(msg.Attachments) > 0 {
 		for _, x := range msg.Attachments {
-			email.AddAttachment(x)
+			attachment := x.(string) // Assuming x is a string, type assertion is used here
+			email.AddAttachment(attachment)
 		}
 	}
 	err = email.Send(smtpClient)
