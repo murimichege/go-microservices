@@ -24,7 +24,7 @@ type Message struct {
 	FromName    string
 	To          string
 	Subject     string
-	Attachments string
+	Attachments []string
 	Data        any
 	DataMap     map[string]any
 }
@@ -71,8 +71,7 @@ func (m *Mail) SendSMTPMessage(msg Message) error {
 
 	if len(msg.Attachments) > 0 {
 		for _, x := range msg.Attachments {
-			attachment := x.(string) // Assuming x is a string, type assertion is used here
-			email.AddAttachment(attachment)
+			email.AddAttachment(x)
 		}
 	}
 	err = email.Send(smtpClient)
