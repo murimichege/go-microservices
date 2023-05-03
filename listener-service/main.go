@@ -34,9 +34,8 @@ func connect() (*amqp091.Connection, *amqp091.Connection) {
 		c, err := amqp091.Dial("amqp://guest:guest@localhost")
 		if err != nil {
 			fmt.Println("Rabbit not yet ready")
-			counts ++
-		}
-		else {
+			counts++
+		} else {
 			connection = c
 			break
 		}
@@ -44,11 +43,11 @@ func connect() (*amqp091.Connection, *amqp091.Connection) {
 			fmt.Println(err)
 			return nil, nil
 		}
-		backoff = time.Duration(math.Pow(float64((counts), 2)) * time.Second
+		backoff = time.Duration(math.Pow(float64(counts), 2)) * time.Second
 		log.Println("backing off...")
 		time.Sleep(backoff)
 		continue
 
 	}
-     return connection, nil
+	return connection, nil
 }
